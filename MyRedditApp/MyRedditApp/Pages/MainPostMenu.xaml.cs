@@ -1,56 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
+using MyRedditApp.Models;
+using MyRedditApp.ViewModels;
 using Xamarin.Forms;
 
 namespace MyRedditApp.Pages
 {
-    //TODO: CAMBIAR ESTO POR MI MODELO Y EL VIEWMODEL
-    public class MainMenuItem
-    {
-        public string Title { get; set; }
-        public Type TargetType { get; set; }
-    }
 
     public partial class MainPostMenu : MasterDetailPage
     {
-        public List<MainMenuItem> MainMenuItems { get; set; }
+        #region Constructor
 
         public MainPostMenu()
         {
-            BindingContext = this;
+            BindingContext = new MainPostMenuVM();
 
-                // Build the Menu
-            MainMenuItems = new List<MainMenuItem>()
-            {
-                new MainMenuItem() { Title = "Page One", TargetType = typeof(PostDetailPage) },
-                new MainMenuItem() { Title = "Page Two", TargetType = typeof(PostDetailPage) }
-            };
-     
             // Set the default page, this is the "home" page.
             Detail = new NavigationPage(new HomePage());
-     
+
             InitializeComponent();
         }
 
-        // When a MenuItem is selected.
-        public void MainMenuItem_Selected(object sender, SelectedItemChangedEventArgs e)
-        {
-            var item = e.SelectedItem as MainMenuItem;
-            if (item != null)
-            {
-                if (item.Title.Equals("Page One"))
-                {
-                    Detail = new NavigationPage(new PostDetailPage());
-                }
-                else if (item.Title.Equals("Page Two"))
-                {
-                    Detail = new NavigationPage(new PostDetailPage());
-                }
+        #endregion
 
-                MenuListView.SelectedItem = null;
-                IsPresented = false;
+        #region Events
+
+        /// <summary>
+        /// Prizes the item appearing. Load by demand in list view when the user scroll to the bottom
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
+        async void PostAppearing(object sender, ItemVisibilityEventArgs e)
+        {
+            var viewCellDetail = e.Item as Post;
+			var viewModel = BindingContext as MainPostMenuVM;
+
+            if (viewModel.Posts.Last() == viewCellDetail)
+            {
+                await viewModel.LoadMorePosts(viewModel.CurrentPostStore.After);
             }
+
+          
+
         }
+
+        #endregion
     }
 }

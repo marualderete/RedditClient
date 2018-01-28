@@ -58,7 +58,7 @@ namespace MyRedditApp.Services
                 {
                     var response = await client.GetAsync(new Uri(url));
 
-                    if (response.IsSuccessStatusCode) //IRootResourceObject
+                    if (response.IsSuccessStatusCode)
                     {
 
                         var jsonStr = await response.Content.ReadAsStringAsync();
@@ -100,7 +100,16 @@ namespace MyRedditApp.Services
 
         #endregion
 
-        #region private methods
+        #region Public Methods
+
+        public IAuthenticationService GetAuthService 
+        {
+            get { return _authenticationService; } 
+        }
+
+        #endregion
+
+        #region Private methods
 
         /// <summary>
         /// Gets the APIU rl.

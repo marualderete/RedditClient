@@ -5,7 +5,7 @@ namespace MyRedditApp.Services
 {
     public interface IAuthenticationService
     {
-        Task<bool> Login(string user, string password);
+        Task<bool> GetRequestToken();
 
         String GetToken();
 

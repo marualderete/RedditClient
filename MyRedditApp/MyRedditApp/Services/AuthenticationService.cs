@@ -17,111 +17,91 @@ namespace MyRedditApp.Services
     {
         #region private attributes
 
-        string _accessToken = "7psO-L_cFGlyr1zh-p_difAIxhg";
+        string _accessToken = "A7kqPZTMTsWZx8QZB7Zm_7kUAos";
 
         #endregion
 
+		#region constructor
         public AuthenticationService()
         {
         }
-        #region constructor
-
-
         #endregion
 
         #region private methods
+   //     Task<bool> VerifyCurrentToken()
+   //     {
+			//var basicApiURL = AppConfig.API_URL; // just the basic url in order to Know if we need to make a new acess_token
+            
+			////Verify if current token is still valid:
+			//using (var client = new HttpClient())
+			//{
+			//	client.BaseAddress = new Uri($"{basicApiURL}");
+			//	client.DefaultRequestHeaders.Clear();
+   //             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", _accessToken);
+			//	client.DefaultRequestHeaders.Add("User-Agent", "MyRedditApp/0.1 by Me");
 
-        async Task<string> GetRequestToken()
-        {
-            //TODO: NEED TO PUT POST DATA FOR REFRES THE TOKEN!
-            var url = string.Format(AppConfig.RefreshTokenURL, GetToken());
+   //             object result;
 
-            using (var client = new HttpClient())
-            {
-                var json = await client.GetStringAsync(url);
+   //             try{
+   //                 var verifyTask = Task.Factory.StartNew(() =>{
+                        
+			//			var response = client.GetAsync(new Uri(basicApiURL));
+   //                     result = response.Result;
+   //                 });
+					
+   //                 verifyTask.Wait();
+   //                 var currentStatus = verifyTask.Status;
 
-                var result = await Task.Run(() => JsonConvert.DeserializeObject(json));
-                var isOK = (bool)JObject.Parse(result.ToString())["success"];
+   //                 return Task.FromResult(true);
+                    
+   //             }catch(Exception e)
+   //             {
+   //                 throw new Exception();
+   //             }
+				
+			//}
+        //}
 
-                if (!isOK)
-                {
-                    return string.Empty;
-                }
 
-                return JObject.Parse(result.ToString())["request_token"].ToString();
-            }
-        }
         #endregion
 
         #region IAuthentication implementation
-
-        /// <summary>
-        /// Login the specified user and password.
-        /// </summary>
-        /// <returns>The login.</returns>
-        /// <param name="user">User.</param>
-        /// <param name="password">Password.</param>
-        public async Task<bool> Login(string user, string password)
+        public async Task<bool> GetRequestToken()
         {
-            if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(password))
-            {
-                throw new ArgumentNullException("invalid user or password");
-            }
+            //TODO: NEED TO PUT POST DATA FOR REFRES THE TOKEN!
+            var requestTokenURL = AppConfig.GetTokenURL;
 
-            var url = string.Format(AppConfig.RedditBaseURL + "login");
-
+            // POST: request a new access_token!!
             using (var client = new HttpClient())
             {
-                HttpStatusCode code;
-                string responseBody = string.Empty;
-                string error = string.Empty;
+                try
+                {
+                    client.BaseAddress = new Uri($"{requestTokenURL}");
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Add("User-Agent", "MyRedditApp/0.1 by Me");
 
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var response = await client.GetAsync(new Uri(requestTokenURL));
 
-                var formContent = new FormUrlEncodedContent(new[] {
-                    new KeyValuePair<string, string>("grant_type", "password"),
-                    new KeyValuePair<string, string>("username", user),
-                    new KeyValuePair<string, string>("password", password)
-                });
-
-                FormUrlEncodedContent postBody = formContent;
-
-                Task taskDownload = client.PostAsync(url, postBody)
-                    .ContinueWith(task =>
+                    if (response.IsSuccessStatusCode)
                     {
+    					string content = await response.Content.ReadAsStringAsync();
+    					
+    					//var newToken = JObject.Parse(content)["access_token"].ToString();
+    					//_accessToken = newToken;
+                        
+                    }
+                    //response.EnsureSuccessStatusCode();
 
-                        if (task.Status == TaskStatus.RanToCompletion)
-                        {
-                            var response = task.Result;
-                            if (response.IsSuccessStatusCode)
-                            {
-                                code = response.StatusCode;
-                                responseBody = response.Content.ReadAsStringAsync().Result;
-                                //UserCredentialResponseModel credential = JsonConvert.DeserializeObject<UserCredentialResponseModel>(responseBody);
-                                //_userCredentialResponseDatabase.AddItemAsync(credential);
-                            }
-                            else
-                            {
-                                code = response.StatusCode;
-                                responseBody = response.Content.ReadAsStringAsync().Result;
-                                //ErrorModel errormodel = JsonConvert.DeserializeObject<ErrorModel>(responseBody);
 
-                                //error = errormodel.Error_Description;
-                            }
-                        }
-                        else
-                        {
-                            error = "El servicio no se encuentra disponible. Intente mas tarde";
-                        }
-                    });
+                    return true;
 
-                taskDownload.Wait();
+                }
+                catch (Exception e)
+                {
 
-                if (!string.IsNullOrEmpty(error))
-                    throw new ArgumentNullException(error);
+                }
 
-                return string.IsNullOrEmpty(error);
+                return false;
             }
         }
 

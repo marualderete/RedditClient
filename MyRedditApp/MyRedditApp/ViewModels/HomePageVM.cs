@@ -7,7 +7,7 @@ using MyRedditApp.Services.Interfaces;
 
 namespace MyRedditApp.ViewModels
 {
-    public class HomePageVM : BaseViewModel
+    public class HomePageVM : BaseVM
     {
         #region Private Properties
 

@@ -41,6 +41,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="CustomViews\PostCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -62,7 +66,7 @@
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Services\PostService.cs" />
     <Compile Include="Services\Interfaces\IPostService.cs" />
-    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\BaseVM.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Models\PostStoreModel.cs" />
     <Compile Include="Models\Post.cs" />
@@ -71,6 +75,10 @@
     </Compile>
     <Compile Include="Pages\PostDetailPage.xaml.cs">
       <DependentUpon>PostDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MainPostMenuVM.cs" />
+    <Compile Include="CustomViews\PostCell.xaml.cs">
+      <DependentUpon>PostCell.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +121,7 @@
     <Folder Include="Pages\" />
     <Folder Include="Helpers\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="CustomViews\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.122203\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.122203\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />

@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace MyRedditApp.Droid
 {
@@ -21,6 +22,9 @@ namespace MyRedditApp.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            //In order to use the plugin for profile photos, need to initialize it
+            ImageCircleRenderer.Init();
 
             LoadApplication(new App());
         }

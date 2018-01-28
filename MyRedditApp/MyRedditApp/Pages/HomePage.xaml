@@ -2,11 +2,13 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:Plugins="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
     x:Class="MyRedditApp.Pages.HomePage">
     
 	<ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
             <Label Text="You can run but you cant hide bitch!" VerticalOptions="Center" HorizontalOptions="Center" />
+
 
             <Button 
                 BackgroundColor="Gray"

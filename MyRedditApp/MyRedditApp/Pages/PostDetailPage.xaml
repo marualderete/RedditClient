@@ -6,9 +6,14 @@
 
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+
             
             <Label Text="YOU CAN NOT RUN BITCH!" VerticalOptions="Center" HorizontalOptions="Center" />
 
+            <WebView Source="" x:Name="RedditPostURL"
+                    VerticalOptions="Center" HorizontalOptions="Center">
+            </WebView>
+            
         </StackLayout>
         
     </ContentPage.Content>

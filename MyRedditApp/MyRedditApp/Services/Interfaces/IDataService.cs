@@ -6,7 +6,6 @@ namespace MyRedditApp.Services.Interfaces
 {
     public interface IDataService<T>
     {
-        //Task<IEnumerable<T>> GetItemListAsync(string concreteSearch, bool forceRefresh = false);
 
         Task<T> GetItemAsync(string concreteSearch, string after = null);
 

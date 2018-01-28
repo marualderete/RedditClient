@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Frame x:Class="MyRedditApp.CustomViews.PostCell"
+       xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:Plugins="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+       xmlns:converters="clr-namespace:PeatonUp.Converters;assembly=PeatonUp"
+       HorizontalOptions="FillAndExpand"
+       VerticalOptions="FillAndExpand"
+       Padding="0,0">
+
+    <Grid x:Name="PostCellBody"
+          HeightRequest="100"
+          Margin="0"
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="80*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  GRID 0: FIRST COLUMN WITH USER PHOTO CIRCLE IMAGE  -->
+        <StackLayout x:Name="ProfilePhotoContainer"
+                     Grid.Row="0"
+                     Grid.Column="0"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Start"
+                     Margin="0,4">
+
+            <Plugins:CircleImage x:Name="CircleImagePhoto"
+                                 WidthRequest="50"
+                                 HeightRequest="50"
+                                 Aspect="AspectFit"
+                                 Style="{StaticResource ProfilePhoto}" />
+        </StackLayout>
+
+        <!--  GRID 0: SECOND COLUMN WITH ANOTHER GRID THAT WILL CONTAIN ALL POST DATA  -->
+        <StackLayout x:Name="PostDetailContainer"
+                     Grid.Row="0"
+                     Grid.Column="1">
+
+            <Grid Margin="0,2,0,2" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <!--  AUTHOR - N DAYS AGO  -->
+                    <RowDefinition Height="20" /> 
+                    <!--  POST TITLE  -->
+                    <RowDefinition Height="40" /> 
+                   
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*" />
+                    <ColumnDefinition Width="50*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  GRID 1: AUTHOR - 1ST COLUMN, 1ST ROW  -->
+                <StackLayout Grid.Row="0"
+                             Grid.Column="0">
+
+                    <Label x:Name="AuthorName"
+                           XAlign="Start"
+                           YAlign="Center" 
+                           Style="{StaticResource MicroCommonLabel}"
+                           TextColor="{StaticResource Orange}"/>
+                </StackLayout>
+
+                <!--  GRID 1: X DAYS AGO - 2ND COLUMN, 1ST ROW  -->
+                <StackLayout Grid.Row="0"
+                             Grid.Column="1">
+
+                    <Label x:Name="CreatedAt"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           XAlign="Center"
+                           YAlign="Center"
+                           Style="{StaticResource MicroCommonLabel}"
+                           TextColor="{StaticResource White80}"
+                            />
+                </StackLayout>
+
+
+                <!--  GRID 1: POST TITLE - ALL COLUMNS, 2ND ROW  -->
+
+                <StackLayout Grid.Row="1"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+                    <Label x:Name="PostTitleLabel"
+                           XAlign="Start"
+                           YAlign="Center"
+                           HeightRequest="40"
+                           Style="{StaticResource MicroCommonLabel}"
+                           Font="Bold"
+                           FontSize="Small"/>
+
+                </StackLayout>
+
+
+
+            </Grid>
+            
+
+        </StackLayout>
+    <!--  DISMISS BUTTON  -->
+        <StackLayout x:Name="DismissContainer"
+                     HorizontalOptions="EndAndExpand"
+                     Grid.Row="1"
+                     Grid.Column="1"
+                     Margin="5,0"
+                     BackgroundColor="Blue"
+                     VerticalOptions="Start">
+
+            <Image x:Name="DismissButton" Source="dismiss.png" HeightRequest="30" WidthRequest="30" />
+        </StackLayout>
+
+    </Grid>
+</Frame>

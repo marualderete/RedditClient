@@ -47,6 +47,8 @@ namespace MyRedditApp.Models
         [JsonProperty("hidden")]
         public bool IsHidden { get; set; }
 
+        [JsonProperty("name")]
+        public String FullName { get; set; }
 
     }
 }

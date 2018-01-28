@@ -3,7 +3,7 @@ using MyRedditApp.Helpers;
 
 namespace MyRedditApp.ViewModels
 {
-    public class BaseViewModel : ObservableObject
+    public class BaseVM : ObservableObject
     {
         #region Privates Properties
 
