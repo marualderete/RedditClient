@@ -251,8 +251,6 @@ namespace MyRedditApp.ViewModels
             try{
 
                 LoadPostsAsync(after, false);
-                //Task more = new Task(async () => await LoadPostsAsync(after, false));
-                //more.Wait();
                 
             }catch(Exception e)
             {
