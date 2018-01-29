@@ -17,6 +17,7 @@ namespace MyRedditApp.Pages
             BindingContext = new MainPostMenuVM();
 
             // Set the default page, this is the "home" page.
+            NavigationPage.SetBackButtonTitle(this, "Home");
             Detail = new NavigationPage(new HomePage());
 
             InitializeComponent();			

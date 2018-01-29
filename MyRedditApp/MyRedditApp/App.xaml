@@ -66,8 +66,6 @@
             
             <Style x:Key="MenuHeaderFrame" TargetType="Frame">
                 <Setter Property="BackgroundColor" Value="{StaticResource LightBlue}" />
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="Padding" Value="0" />
             </Style>
 
             <Style x:Key="MenuFoterFrame" TargetType="Frame">

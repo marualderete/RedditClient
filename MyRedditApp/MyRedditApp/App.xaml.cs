@@ -34,6 +34,13 @@ namespace MyRedditApp
 			_authService = ServiceLocator.Instance.Get<IAuthenticationService>();
 
             InitializeComponent();
+            Task.Factory.StartNew(async () => {
+
+                //prepare to perform your data pull here as we have hit the 1 minute mark   
+                // Perform your long running operations here.
+                await _authService.GetRequestToken();
+
+            }).Wait();
 
             MainPage = new NavigationPage(new MainPostMenu());
         }
@@ -59,6 +66,7 @@ namespace MyRedditApp
             // On start runs when your application launches from a closed state, 
             if (!stopWatch.IsRunning)
             {
+                
                 stopWatch.Start();
             }
 
