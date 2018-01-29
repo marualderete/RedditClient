@@ -27,7 +27,7 @@ namespace MyRedditApp.Models
         {
             if (PostDetail.IsSelf || string.IsNullOrEmpty(PostDetail.Thumbnail))
             {
-                return ImageSource.FromResource("no_image.png");
+                return ImageSource.FromFile("no_image.png");
             }
             else
             {
