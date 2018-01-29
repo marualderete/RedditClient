@@ -39,7 +39,9 @@ namespace MyRedditApp.Pages
 
             if (viewModel.Posts.Last() == viewCellDetail)
             {
+
                 await viewModel.LoadMorePosts(viewModel.CurrentPostStore.After);
+
             }         
 
         }

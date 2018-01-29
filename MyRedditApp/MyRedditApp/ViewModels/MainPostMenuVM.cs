@@ -9,6 +9,7 @@ using MyRedditApp.Helpers;
 using MyRedditApp.Models;
 using MyRedditApp.Pages;
 using MyRedditApp.Services.Interfaces;
+using MyRedditApp.Services;
 
 namespace MyRedditApp.ViewModels
 {
@@ -25,6 +26,7 @@ namespace MyRedditApp.ViewModels
         Command _refreshCommand;
 
         IPostService _postService;
+        IAuthenticationService _authService;
 
         ObservableCollection<Post> _posts;
         PostStoreModel _currentPostStore;
@@ -41,7 +43,9 @@ namespace MyRedditApp.ViewModels
             ErrorMessage = string.Empty;
 
             _postService = ServiceLocator.Instance.Get<IPostService>();
-            LoadPostsAsync();
+            _authService = ServiceLocator.Instance.Get<IAuthenticationService>();
+
+            GetNewAccessToken();
         }
 
         #endregion
@@ -85,15 +89,13 @@ namespace MyRedditApp.ViewModels
             {
                 if (_refreshCommand == null)
                 {
-                    _refreshCommand = new Command( async () =>
+                    _refreshCommand = new Command( () =>
                     {
                         IsRefreshing = true;
-                        await LoadPostsAsync(null).ContinueWith( result => {
-                            
-							IsRefreshing = false;
+                        LoadPostsAsync(null);
+    					IsRefreshing = false;
 
-                        });
-
+    
                     });
                 }
                 return _refreshCommand;
@@ -180,7 +182,32 @@ namespace MyRedditApp.ViewModels
         /// Calls Reddit API to brings first 5 top posts.
         /// </summary>
         /// <returns>The posts async.</returns>
-        async Task<bool> LoadPostsAsync(string pAfter = null, bool enableRefreshSpinner = true)
+        async void GetNewAccessToken()
+        {
+            try
+            {
+                var isDone= await _authService.GetRequestToken();
+
+                if (isDone)
+                {
+					//Posts = new ObservableCollection<Post>();
+
+                    LoadPostsAsync();
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error getting a new token ", e);
+            }
+        }
+
+        /// <summary>
+        /// Calls Reddit API to brings first 5 top posts.
+        /// </summary>
+        /// <returns>The posts async.</returns>
+        async void LoadPostsAsync(string pAfter = null, bool enableRefreshSpinner = true, bool firstExecution = false)
         {
             try
             {
@@ -203,8 +230,6 @@ namespace MyRedditApp.ViewModels
                 IsRefreshing = false;
 				_after = CurrentPostStore.After;
 
-
-                return true;
             }
             catch (Exception e)
             {
@@ -224,14 +249,17 @@ namespace MyRedditApp.ViewModels
         public async Task<bool> LoadMorePosts(string after)
         {
             try{
-                
-				await this.LoadPostsAsync(after, false);
+
+                LoadPostsAsync(after, false);
+                //Task more = new Task(async () => await LoadPostsAsync(after, false));
+                //more.Wait();
                 
             }catch(Exception e)
             {
                 throw new Exception("Sorry! There are some errors trying to load more posts.", e);
             }
             return true;
+
         }
 
         #endregion

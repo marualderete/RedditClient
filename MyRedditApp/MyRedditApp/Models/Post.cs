@@ -25,13 +25,13 @@ namespace MyRedditApp.Models
         /// <returns>The thumbnail image.</returns>
         public ImageSource GetThumbnailImage()
         {
-            if (PostDetail.IsSelf || string.IsNullOrEmpty(PostDetail.Thumbnail))
-            {
-                return ImageSource.FromFile("no_image.png");
-            }
-            else
+            try
             {
                 return ImageSource.FromUri(new Uri($"{PostDetail.Thumbnail}"));
+
+            }catch(Exception e)
+            {
+                return ImageSource.FromFile("no_image.png");
             }
 
         }
