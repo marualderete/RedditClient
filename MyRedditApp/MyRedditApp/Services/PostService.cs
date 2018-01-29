@@ -61,7 +61,7 @@ namespace MyRedditApp.Services
 
                 try
                 {
-                    var response = await client.GetAsync(new Uri(url));
+                    var response = await client.PostAsync(new Uri(url),new StringContent(""));
 
                     if (response.IsSuccessStatusCode) //IRootResourceObject
                     {

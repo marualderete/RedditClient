@@ -80,6 +80,8 @@
     <Compile Include="CustomViews\PostCell.xaml.cs">
       <DependentUpon>PostCell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\PostDetailPageVM.cs" />
+    <Compile Include="PlatformServices\IMediaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

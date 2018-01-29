@@ -9,5 +9,6 @@ namespace MyRedditApp.Services.Interfaces
     {
         Task<bool> DismissPost (string postId);
         Task<bool> DismissAll(List<Post> postList);
+
     }
 }

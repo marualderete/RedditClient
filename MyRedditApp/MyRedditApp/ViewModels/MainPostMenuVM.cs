@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Xamarin.Forms;
+
 using MyRedditApp.Helpers;
 using MyRedditApp.Models;
 using MyRedditApp.Pages;
 using MyRedditApp.Services.Interfaces;
-using Xamarin.Forms;
 
 namespace MyRedditApp.ViewModels
 {
@@ -21,7 +23,6 @@ namespace MyRedditApp.ViewModels
         Command<Post> _postSelectedCommand;
         Command<String> _dismissCommand;
         Command _dismissAllCommand;
-
         Command _refreshCommand;
 
         IPostService _postService;
@@ -29,7 +30,6 @@ namespace MyRedditApp.ViewModels
         ObservableCollection<Post> _posts;
         PostStoreModel _currentPostStore;
 
-        string _before = string.Empty;
         string _after = string.Empty;
 
         #endregion
@@ -76,6 +76,10 @@ namespace MyRedditApp.ViewModels
 
         #region Commands
 
+        /// <summary>
+        /// Pull to refresh command action
+        /// </summary>
+        /// <value>The refresh command.</value>
         public Command RefreshCommand
         {
             get
@@ -109,14 +113,21 @@ namespace MyRedditApp.ViewModels
                 {
                     _postSelectedCommand = new Command<Post>(async postSelected =>
                    {
-
                        await Application.Current.MainPage.Navigation.PushAsync(new PostDetailPage(postSelected));
+                        //                 .ContinueWith( async () =>
+                        //{
+                         //   postSelected.PostDetail.IsClicked = true;
+                         //});
                    });
                 }
                 return _postSelectedCommand;
             }
         }
 
+        /// <summary>
+        /// Dismiss the current tapped post
+        /// </summary>
+        /// <value>The dismiss command.</value>
         public Command<String> DismissCommand
         {
             get
@@ -127,8 +138,15 @@ namespace MyRedditApp.ViewModels
                     {
 
                         await _postService.DismissPost(fullnameId);
-                        Posts.Remove(Posts.Where(x => x.PostDetail.FullName == fullnameId).Single());
-                     //   await Application.Current.MainPage.Navigation.PushAsync(new PostDetailPage(postSelected));
+                        var postToRemove = Posts.Where(x => x.PostDetail.FullName == fullnameId).FirstOrDefault();
+                        try
+                        {
+							Posts.Remove(postToRemove);
+                            
+                        }catch(Exception e)
+                        {
+                            
+                        }
                     });
                 }
                 return _dismissCommand;
@@ -136,6 +154,10 @@ namespace MyRedditApp.ViewModels
         
         }
 
+        /// <summary>
+        /// Dismiss all posts shown
+        /// </summary>
+        /// <value>The dismiss all command.</value>
         public Command DismissAllCommand
         {
             get
@@ -163,11 +185,11 @@ namespace MyRedditApp.ViewModels
         /// Calls Reddit API to brings first 5 top posts.
         /// </summary>
         /// <returns>The posts async.</returns>
-        async Task<bool> LoadPostsAsync(string pAfter = null)
+        async Task<bool> LoadPostsAsync(string pAfter = null, bool enableRefreshSpinner = true)
         {
             try
             {
-                IsRefreshing = true;
+                IsRefreshing = enableRefreshSpinner;
 
                 CurrentPostStore = await _postService.GetItemAsync(AppConfig.TopPost, pAfter);
 
@@ -210,7 +232,7 @@ namespace MyRedditApp.ViewModels
         {
             try{
                 
-				this.LoadPostsAsync(after);
+				this.LoadPostsAsync(after, false);
                 
             }catch(Exception e)
             {
@@ -220,10 +242,5 @@ namespace MyRedditApp.ViewModels
         }
 
         #endregion
-    }
-
-    public class MainMenuItem
-    {
-        public string Title { get; set; }
     }
 }

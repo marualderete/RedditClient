@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using MyRedditApp.Helpers;
+using MyRedditApp.Models;
 using MyRedditApp.Pages;
 using MyRedditApp.PlatformServices;
 using MyRedditApp.Services;
@@ -14,9 +15,6 @@ namespace MyRedditApp
     public partial class App : Application
     {
         #region Private properties
-
-        static string _database;
-        static SQLiteAsyncConnection _databaseConnection;
 
         IAuthenticationService _authService;
 
@@ -31,10 +29,6 @@ namespace MyRedditApp
   
         public App()
         {
-            _database = DependencyService.Get<IAppConnectionService>().GetLocalFilePath("RedditClientDB.db3");
-            _databaseConnection = new SQLiteAsyncConnection(Database);
-
-            //CreateDatabaseTables();
 
             RegisterServices();
 
@@ -48,20 +42,6 @@ namespace MyRedditApp
         #endregion
 
 
-        #region Public methods
-
-        public static SQLiteAsyncConnection DatabaseConnection
-        {
-            get { return _databaseConnection; }
-        }
-
-        public static string Database
-        {
-            get { return _database; }
-        }
-
-		#endregion
-
         #region Private  methods
 
         /// <summary>
@@ -73,12 +53,6 @@ namespace MyRedditApp
             ServiceLocator.Instance.Register<IPostService, PostService>();
         }
 
-        void CreateDatabaseTables()
-        {
-           // DatabaseConnection.CreateTableAsync<UserCredentialResponseModel>().Wait();
-           // DatabaseConnection.CreateTableAsync<PeatonUserModel>().Wait();
-           
-        }
 
         #endregion
         protected override void OnStart()

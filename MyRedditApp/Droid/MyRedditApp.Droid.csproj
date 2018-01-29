@@ -141,7 +141,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PlatformServices\AppConnectionService.cs" />
+    <Compile Include="PlatformServices\MediaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -159,6 +159,8 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable\dismiss.png" />
     <AndroidResource Include="Resources\drawable\userphoto.png" />
+    <AndroidResource Include="Resources\drawable\no_image.png" />
+    <AndroidResource Include="Resources\drawable\redditprofile.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PlatformServices\" />

@@ -6,32 +6,27 @@
                   x:Name="MainPostMenu">
 
     <MasterDetailPage.Master>
-        <ContentPage Title=" Top Posts "
-                     BackgroundColor="#616161"
-                     Icon="hamburger_menu.png">
+        <ContentPage Title=" Top Posts " Icon="hamburger_menu.png">
             <!--  Menu Title background color  -->
 
             <!--  Slide out Menu  -->
-            <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="#6E006C">
+            <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource LightBlue}">
 
-                <Label Margin="0, 27, 0, 5"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"
-                       XAlign="Center"
-                       FontSize="22"
-                       Text="Top Posts"
-                       TextColor="White"
-                       YAlign="Center" />
+                <Frame Style="{StaticResource MenuHeaderFrame}">
+                    <Label Style="{StaticResource MenuHeaderTitle}" Text="Top Posts" />
+
+                </Frame>
 
                 <ListView x:Name="PostListView"
                           VerticalOptions="FillAndExpand"
-                          BackgroundColor="#9991278F"
+                          BackgroundColor="{StaticResource LightBlue}"
                           IsPullToRefreshEnabled="true"
                           IsRefreshing="{Binding IsRefreshing}"
                           ItemAppearing="PostAppearing"
                           ItemsSource="{Binding Posts}"
                           RefreshCommand="{Binding RefreshCommand}"
-                          RowHeight="130"
+                          RowHeight="120"
+                          SeparatorColor="{StaticResource CustomGray}"
                           SeparatorVisibility="Default">
                     <!--  Menu background color  -->
 
@@ -39,10 +34,13 @@
                         <DataTemplate>
                             <ViewCell>
                                 <customViews:PostCell x:Name="ThePostCell"
-                                                      Margin="2,15"
+                                                      Margin="5,0"
                                                       BackgroundColor="Transparent"
-                                                      OnSelectedCommand="{Binding Path=BindingContext.PostSelectedCommand, Source={x:Reference MainPostMenu}}"
-                                                      DismissCommand="{Binding Path=BindingContext.DismissCommand, Source={x:Reference MainPostMenu}}"
+                                                      DismissCommand="{Binding Path=BindingContext.DismissCommand,
+                                                                               Source={x:Reference MainPostMenu}}"
+                                                      OnSelectedCommand="{Binding Path=BindingContext.PostSelectedCommand,
+                                                                                  Source={x:Reference MainPostMenu}}"
+                                                      Padding="0"
                                                       PostData="{Binding .}" />
 
                             </ViewCell>
@@ -51,19 +49,13 @@
 
                 </ListView>
 
-                <StackLayout x:Name="MenuFooter"
-                             HorizontalOptions="FillAndExpand"
-                             BackgroundColor="#6E006C">
+                <Frame x:Name="MenuFooter"
+                       Style="{StaticResource MenuFoterFrame}">
 
-                    <Button WidthRequest="170"
-                            HeightRequest="30"
-                            HorizontalOptions="Center"
-                            BackgroundColor="{StaticResource Orange}"
+                    <Button Style="{StaticResource MenuFooterButton}"
                             Command="{Binding DismissAllCommand}"
-                            FontSize="Large"
-                            Text="Dismiss All"
-                            TextColor="White" />
-                </StackLayout>
+                            Text="Dismiss All" />
+                </Frame>
 
             </StackLayout>
 

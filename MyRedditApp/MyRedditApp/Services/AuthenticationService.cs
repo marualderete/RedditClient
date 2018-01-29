@@ -17,7 +17,7 @@ namespace MyRedditApp.Services
     {
         #region private attributes
 
-        string _accessToken = "A7kqPZTMTsWZx8QZB7Zm_7kUAos";
+        string _accessToken = "NCtJm6xCek1PCyEco8vCjWd12e4";
 
         #endregion
 
@@ -76,6 +76,8 @@ namespace MyRedditApp.Services
             {
                 try
                 {
+    //"https://www.reddit.com/api/v1/authorize?client_id=ClD-CsiBwgguyA&response_type=token&state=success202&redirect_uri=http://m.MyRedditApp.ferrison.com&scope=read,identity,report";
+
                     client.BaseAddress = new Uri($"{requestTokenURL}");
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Add("User-Agent", "MyRedditApp/0.1 by Me");

@@ -142,10 +142,13 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="PlatformServices\AppConnectionService.cs" />
+    <Compile Include="PlatformServices\MediaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\dismiss.png" />
     <BundleResource Include="Resources\userphoto.png" />
+    <BundleResource Include="Resources\no_image.png" />
+    <BundleResource Include="Resources\redditprofile.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets')" />

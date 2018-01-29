@@ -20,7 +20,7 @@ namespace MyRedditApp.CustomViews
         #endregion
 
         #region Properties
-        public ImageSource UserPhoto
+        public ImageSource PostThumbnail
         {
             get { return CircleImagePhoto.Source; }
             set { CircleImagePhoto.Source = value; }
@@ -30,6 +30,12 @@ namespace MyRedditApp.CustomViews
         {
             get { return AuthorName.Text; }
             set { AuthorName.Text = value; }
+        }
+
+        public string CommentsCount
+        {
+            get { return CommentsNro.Text; }
+            set { CommentsNro.Text = value; }
         }
 
         public string CreatedDate
@@ -131,13 +137,13 @@ namespace MyRedditApp.CustomViews
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += async (s, e) =>
             {
-                PostCellBody.Opacity = .5;
+                CellBody.Opacity = .5;
                 await Task.Delay(100);
-                PostCellBody.Opacity = 1;
+                CellBody.Opacity = 1;
                 OnSelectedCommand.Execute(PostData);
             };
 
-            PostDetailContainer.GestureRecognizers.Add(tapGestureRecognizer);
+            CellBody.GestureRecognizers.Add(tapGestureRecognizer);
         }
 
         void DismissCommandChanged()
@@ -145,21 +151,25 @@ namespace MyRedditApp.CustomViews
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += async (s, e) =>
             {
-                DismissContainer.Opacity = .5;
+                DismissButton.Opacity = .5;
                 await Task.Delay(100);
-                DismissContainer.Opacity = 1;
+                DismissButton.Opacity = 1;
                 DismissCommand.Execute(PostData.PostDetail.FullName);
             };
 
-            DismissContainer.GestureRecognizers.Add(tapGestureRecognizer);
+            DismissButton.GestureRecognizers.Add(tapGestureRecognizer);
         }
 
         void LoadPostData(Post newPost)
         {
-            UserPhoto = newPost.GetAuthorPhoto();
-            Author = newPost.PostDetail.Author;
-            CreatedDate = " n days ago ";
-            PostTitle = newPost.PostDetail.Title;
+            if(newPost != null)
+            {
+                PostThumbnail = newPost.GetThumbnailImage();
+    			Author = newPost.PostDetail.Author;
+    			CreatedDate = " n days ago ";
+    			PostTitle = newPost.PostDetail.Title;
+                CommentsCount = newPost.PostDetail.CommentCount.ToString()+ " Comments";
+            }
         }
 		#endregion
     }

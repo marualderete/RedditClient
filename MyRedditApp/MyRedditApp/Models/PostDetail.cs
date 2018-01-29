@@ -33,10 +33,7 @@ namespace MyRedditApp.Models
         public String CreatedDateStr { get; set; }
 
         [JsonProperty("thumbnail")]
-        public String ThumbnailURL { get; set; }
-
-        [JsonIgnore]
-        public Image ThumbnailImage { get; set; }
+        public String Thumbnail { get; set; }
 
         [JsonProperty("num_comments")]
         public int CommentCount { get; set; }
@@ -50,5 +47,10 @@ namespace MyRedditApp.Models
         [JsonProperty("name")]
         public String FullName { get; set; }
 
+        [JsonProperty("url")]
+        public String Url { get; set; }
+
+        [JsonProperty("is_video")]
+        public bool IsVideo { get; set; }
     }
 }

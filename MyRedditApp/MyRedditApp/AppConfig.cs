@@ -15,8 +15,9 @@ namespace MyRedditApp
 
         public static readonly string TopPost = "https://oauth.reddit.com/top?limit=10";
         public static readonly string After = "&after={0}";
-        public static readonly string Hide = "/hide?id={0}";
+        public static readonly string Hide = "/api/hide?id={0}";
 
+        public static readonly string ImageSaved = "Image Saved";
             
 
     }
