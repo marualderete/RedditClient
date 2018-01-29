@@ -8,11 +8,11 @@
     <ContentPage.Content>
 
         <ScrollView VerticalOptions="FillAndExpand" Orientation="Vertical">
-            
+
             <StackLayout Margin="10" Style="{StaticResource PostDetailContainerLy}">
 
 
-                <StackLayout x:Name="HeaderDetail" Style="{StaticResource PostDetailHeaderBody}" >
+                <StackLayout x:Name="HeaderDetail" Style="{StaticResource PostDetailHeaderBody}">
 
                     <Label Style="{StaticResource PostDetailTitleLabel}" Text="{Binding CurrentPost.PostDetail.Title}" />
 
@@ -55,21 +55,23 @@
                              VerticalOptions="FillAndExpand"
                              Orientation="Vertical">
 
-                    <Image x:Name="PostImage" Style="{StaticResource PostDetailPhoto}"
+                    <Image x:Name="PostImage"
                            WidthRequest="300"
                            HeightRequest="300"
-                           Source="{Binding PostImageToShow}" />
+                           Source="{Binding PostImageToShow}"
+                           Style="{StaticResource PostDetailPhoto}" />
 
-                    <Button x:Name="SaveImageBtn" Style="{StaticResource PostDetailSaveButton}"
+                    <Button x:Name="SaveImageBtn"
                             WidthRequest="170"
                             HeightRequest="40"
                             Command="{Binding SaveImgToGalleryCommand}"
+                            Style="{StaticResource PostDetailSaveButton}"
                             Text="Save To Gallery" />
 
-                    <Button Style="{StaticResource PostDetailSaveButton}"
-                            WidthRequest="170" 
+                    <Button WidthRequest="170"
                             HeightRequest="40"
-                            Text="Visit the Link"/>
+                            Style="{StaticResource PostDetailSaveButton}"
+                            Text="Visit the Link" />
                 </StackLayout>
 
             </StackLayout>

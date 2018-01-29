@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MyRedditApp.Helpers;
+
 using Newtonsoft.Json;
+
+using MyRedditApp.Helpers;
 
 namespace MyRedditApp.Models
 {

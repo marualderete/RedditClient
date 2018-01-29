@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -114,10 +113,6 @@ namespace MyRedditApp.ViewModels
                     _postSelectedCommand = new Command<Post>(async postSelected =>
                    {
                        await Application.Current.MainPage.Navigation.PushAsync(new PostDetailPage(postSelected));
-                        //                 .ContinueWith( async () =>
-                        //{
-                         //   postSelected.PostDetail.IsClicked = true;
-                         //});
                    });
                 }
                 return _postSelectedCommand;
@@ -142,10 +137,10 @@ namespace MyRedditApp.ViewModels
                         try
                         {
 							Posts.Remove(postToRemove);
-                            
+
                         }catch(Exception e)
                         {
-                            
+                            throw new Exception("Error Dismissing post", e);
                         }
                     });
                 }
@@ -193,20 +188,18 @@ namespace MyRedditApp.ViewModels
 
                 CurrentPostStore = await _postService.GetItemAsync(AppConfig.TopPost, pAfter);
 
-				if(pAfter != null) 
-				{
-					//This mean the user wants to load more posts, this is not a refresh.
-                    foreach(Post eachPost in CurrentPostStore.PostChildren.OfType<Post>())
-                    {
-                        Posts.Add(eachPost);
-                    }
-				}
-				else
-				{
-					//This mean the user wants reload and see the newest post, so we should refresh the list.
-                    Posts = new ObservableCollection<Post>(CurrentPostStore.PostChildren.OfType<Post>());
-
-				}
+                if(string.IsNullOrEmpty(pAfter))
+                {
+                    //This mean the user wants to load more posts, this is not a refresh.
+                    Posts = new ObservableCollection<Post>();
+                }
+				
+                foreach(Post eachPost in CurrentPostStore.PostChildren.OfType<Post>())
+                {
+                    eachPost.UpdateDatesAgoString();
+                    Posts.Add(eachPost);
+                }
+				
                 IsRefreshing = false;
 				_after = CurrentPostStore.After;
 
@@ -215,7 +208,7 @@ namespace MyRedditApp.ViewModels
             }
             catch (Exception e)
             {
-                throw new Exception("Error", e);
+                throw new Exception("Error loading posts", e);
             }
         }
 
@@ -232,7 +225,7 @@ namespace MyRedditApp.ViewModels
         {
             try{
                 
-				this.LoadPostsAsync(after, false);
+				await this.LoadPostsAsync(after, false);
                 
             }catch(Exception e)
             {

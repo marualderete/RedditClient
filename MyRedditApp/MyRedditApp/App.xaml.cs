@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+
+using Xamarin.Forms;
+
 using MyRedditApp.Helpers;
-using MyRedditApp.Models;
 using MyRedditApp.Pages;
-using MyRedditApp.PlatformServices;
 using MyRedditApp.Services;
 using MyRedditApp.Services.Interfaces;
-using SQLite;
-using Xamarin.Forms;
 
 namespace MyRedditApp
 {
@@ -21,7 +20,7 @@ namespace MyRedditApp
         // This is for run a particular action in background, on an interval of time that defaultTimespan defines.
         // I will define this in order to refresh the token every N minutes. It is just a hack to avoid waste time on this.
         static Stopwatch stopWatch = new Stopwatch();
-        const int defaultTimespan = 40; //minutes
+        const int defaultTimespan = 1; //minutes
 
 		#endregion
 

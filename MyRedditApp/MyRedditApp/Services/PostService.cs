@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+
 using MyRedditApp.Models;
 using MyRedditApp.Services.Interfaces;
-using Newtonsoft.Json.Linq;
 
 namespace MyRedditApp.Services
 {
@@ -14,9 +14,7 @@ namespace MyRedditApp.Services
     {
         #region Constructor
 
-        public PostService()
-        {
-        }
+        public PostService(){}
 
         #endregion
 
@@ -74,7 +72,7 @@ namespace MyRedditApp.Services
                 }
                 catch (Exception e)
                 {
-                    throw new ArgumentNullException("Error", "Sorry, we are having some problems with the service");
+                    throw new ArgumentNullException("Sorry, we are having some problems with the service", e);
                 }
 
                 return false;

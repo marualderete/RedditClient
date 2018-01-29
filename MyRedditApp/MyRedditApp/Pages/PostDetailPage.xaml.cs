@@ -1,24 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Xamarin.Forms;
+
 using MyRedditApp.Models;
 using MyRedditApp.ViewModels;
-using Xamarin.Forms;
 
 namespace MyRedditApp.Pages
 {
     public partial class PostDetailPage : ContentPage
     {
-        public PostDetailPage(Post selected)
+        #region Constructor
+        public PostDetailPage(Post selected = null)
         {
             var viewModel = new PostDetailPageVM(selected);
             BindingContext = viewModel;
 
             InitializeComponent();
-
-           
         }
+        #endregion
 
+        #region Override methods
+
+        /// <summary>
+        /// Ons the appearing.
+        /// </summary>
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -29,5 +32,6 @@ namespace MyRedditApp.Pages
             });
 
         }
+		#endregion
     }
 }

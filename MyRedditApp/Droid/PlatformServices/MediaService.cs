@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Net;
+using System.IO;
 
 using Xamarin.Forms;
 
-using MyRedditApp.Droid.PlatformServices;
-using MyRedditApp.PlatformServices;
-using Android.Content;
-using System.IO;
-using Android.Widget;
 using Android.Provider;
 using Android.Graphics;
-using Java.Net;
-using System.Net;
+using Android.Content;
+
+using MyRedditApp.Droid.PlatformServices;
+using MyRedditApp.PlatformServices;
 
 [assembly: Dependency(typeof(MediaService))]
 namespace MyRedditApp.Droid.PlatformServices
 {
     public class MediaService : IMediaService
     {
-        private readonly Context context = Android.App.Application.Context;
+        #region Private properties
+
+        readonly Context context = Android.App.Application.Context;
+		
+        #endregion
 
         #region IMediaService implementations
 
@@ -28,7 +31,7 @@ namespace MyRedditApp.Droid.PlatformServices
         /// <returns>The to gallery.</returns>
         /// <param name="uri">URI.</param>
         /// <param name="url">URL.</param>
-		public Task<bool> SaveToGallery(Uri uri, string url)
+        public Task<bool> SaveToGallery(Uri uri, string url)
         {
             try
             {

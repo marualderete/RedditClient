@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Resources;
-using System.Text.RegularExpressions;
-using MyRedditApp.Helpers;
-using Newtonsoft.Json;
+
 using Xamarin.Forms;
+
+using Newtonsoft.Json;
+
+using MyRedditApp.Helpers;
 
 namespace MyRedditApp.Models
 {
@@ -15,12 +16,16 @@ namespace MyRedditApp.Models
         [JsonProperty("data")]
         public PostDetail PostDetail { get; set; }
 
-        [JsonIgnore]
-        public String Prueba { get; set; }
 
+        #region public getters
+
+		/// <summary>
+        /// Gets the thumbnail image.
+        /// </summary>
+        /// <returns>The thumbnail image.</returns>
         public ImageSource GetThumbnailImage()
         {
-            if (string.IsNullOrEmpty(PostDetail.Thumbnail))
+            if (PostDetail.IsSelf || string.IsNullOrEmpty(PostDetail.Thumbnail))
             {
                 return ImageSource.FromResource("no_image.png");
             }
@@ -31,13 +36,13 @@ namespace MyRedditApp.Models
 
         }
 
+        /// <summary>
+        /// Gets the post image.
+        /// </summary>
+        /// <returns>The post image.</returns>
         public ImageSource GetPostImage()
         {
-            Regex regexPattern = new Regex(@"(?:([^:\?#]+):)?(?:\\([^\?#]*))?([^?#]*\.(?:jpg|JPEG|png|gif|gifv))(?:\?([^#]*))?(?:#(.*))?", RegexOptions.IgnoreCase);
-
-            bool isImage = regexPattern.Match(PostDetail.Url).Success;
-
-            if (!isImage)
+            if (!AppUtils.IsUrlImage(PostDetail.Url))
             {
                 return ImageSource.FromFile("no_image.png");
             }
@@ -46,5 +51,27 @@ namespace MyRedditApp.Models
                 return ImageSource.FromUri(new Uri($"{PostDetail.Url}"));
             }
         }
+
+        /// <summary>
+        /// Updates the dates ago string.
+        /// </summary>
+        public void UpdateDatesAgoString()
+        {
+            var postDate = AppUtils.UnixTimeStampToDateTime(PostDetail.CreatedDateUTC);
+
+            var days = Convert.ToInt32((DateTime.Now - postDate).TotalDays);
+            if (days == 1 || days == 0)
+            {
+                PostDetail.CreatedDateStr = "Today";
+            }
+            else 
+            {
+                PostDetail.CreatedDateStr = days + " days ago";   
+            }
+        }
+
+        #endregion
+
+
     }
 }

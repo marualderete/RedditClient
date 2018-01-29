@@ -18,6 +18,7 @@ namespace MyRedditApp
         public static readonly string Hide = "/api/hide?id={0}";
 
         public static readonly string ImageSaved = "Image Saved";
+        public static readonly string PostDismissed = "Post Dismissed";
             
 
     }

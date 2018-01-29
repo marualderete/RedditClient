@@ -67,7 +67,6 @@
     <Compile Include="Services\PostService.cs" />
     <Compile Include="Services\Interfaces\IPostService.cs" />
     <Compile Include="ViewModels\BaseVM.cs" />
-    <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Models\PostStoreModel.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Pages\MainPostMenu.xaml.cs">
@@ -82,6 +81,7 @@
     </Compile>
     <Compile Include="ViewModels\PostDetailPageVM.cs" />
     <Compile Include="PlatformServices\IMediaService.cs" />
+    <Compile Include="Helpers\AppUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

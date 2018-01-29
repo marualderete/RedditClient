@@ -1,10 +1,11 @@
 ﻿using System;
-using System.IO;
+
+using Xamarin.Forms;
+
 using MyRedditApp.Helpers;
 using MyRedditApp.Models;
 using MyRedditApp.PlatformServices;
 using MyRedditApp.Services.Interfaces;
-using Xamarin.Forms;
 
 namespace MyRedditApp.ViewModels
 {
@@ -25,14 +26,19 @@ namespace MyRedditApp.ViewModels
         #endregion
 
         #region Constructor
+
         public PostDetailPageVM(Post selected)
         {
             IsRefreshing = false;
             ErrorMessage = string.Empty;
+
             CurrentPost = selected;
+
             _postService = ServiceLocator.Instance.Get<IPostService>();
             _mediaService = DependencyService.Get<IMediaService>();
+
         }
+
         #endregion
 
 
@@ -71,11 +77,15 @@ namespace MyRedditApp.ViewModels
             get { return ImageSource.FromFile("redditprofile.jpg"); }
         }
 
+
         #endregion
 
         #region Commands
 		
-
+        /// <summary>
+        /// Gets the save image to gallery command.
+        /// </summary>
+        /// <value>The save image to gallery command.</value>
         public Command SaveImgToGalleryCommand
         {
             get
@@ -98,8 +108,6 @@ namespace MyRedditApp.ViewModels
 
         #endregion
 
-        #region Private methods
-
-        #endregion
     }
+
 }

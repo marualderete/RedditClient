@@ -5,19 +5,21 @@
     xmlns:Plugins="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
     NavigationPage.HasNavigationBar="False" 
     NavigationPage.HasBackButton="False"
+    BackgroundColor="{StaticResource Orange}"
     x:Class="MyRedditApp.Pages.HomePage">
     
 	<ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
-            <Label Text="You can run but you cant hide bitch!" VerticalOptions="Center" HorizontalOptions="Center" />
+        <StackLayout Margin="20" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
 
 
-            <Button 
-                BackgroundColor="Gray"
-                x:Name="Test"
-                Command="{Binding GetTopPostsCommand}"
-                Text="Get Top Posts">
-            </Button>
+            <Label Text="Welcome!" FontSize="38" Font="Bold" XAlign="Center" TextColor="White" ></Label>
+            <Plugins:CircleImage WidthRequest="200"
+                                 HeightRequest="200"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Source="{Binding UserProfilePhoto}"
+                                 Style="{StaticResource ProfilePhoto}" />
+
         </StackLayout>
         
 	</ContentPage.Content>

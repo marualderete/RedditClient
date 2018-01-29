@@ -10,6 +10,7 @@ using MyRedditApp.Services.Interfaces;
 using System.Net;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
+using System.IO;
 
 namespace MyRedditApp.Services
 {
@@ -17,7 +18,7 @@ namespace MyRedditApp.Services
     {
         #region private attributes
 
-        string _accessToken = "NCtJm6xCek1PCyEco8vCjWd12e4";
+        string _accessToken = "L-FYKnOXDG8Tw1xF15NshvMe8LA";
 
         #endregion
 
@@ -68,8 +69,8 @@ namespace MyRedditApp.Services
         #region IAuthentication implementation
         public async Task<bool> GetRequestToken()
         {
-            //TODO: NEED TO PUT POST DATA FOR REFRES THE TOKEN!
-            var requestTokenURL = AppConfig.GetTokenURL;
+
+            var requestTokenURL = "https://www.reddit.com/api/v1/access_token";
 
             // POST: request a new access_token!!
             using (var client = new HttpClient())
@@ -77,16 +78,31 @@ namespace MyRedditApp.Services
                 try
                 {
     //"https://www.reddit.com/api/v1/authorize?client_id=ClD-CsiBwgguyA&response_type=token&state=success202&redirect_uri=http://m.MyRedditApp.ferrison.com&scope=read,identity,report";
-
-                    client.BaseAddress = new Uri($"{requestTokenURL}");
-                    client.DefaultRequestHeaders.Clear();
+                    var values = new Dictionary<string, string>
+                    {
+                        { "grant_type", "refresh_token" },
+                        { "client_id", "ClD-CsiBwgguyA" },
+                        { "Content-Type", "MyRedditApp/x-www-form-urlencoded"},
+                        { "refresh_token", _accessToken},
+                        { "scope", "read,identity,report"},
+                        { "state", "successss"},
+                        { "duration", "temporary"},
+                        { "redirect_uri", "MyRedditApp/x-www-form-urlencoded"}
+                    };
+					client.DefaultRequestHeaders.Clear();
+					client.BaseAddress = new Uri($"{requestTokenURL}");
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic");
                     client.DefaultRequestHeaders.Add("User-Agent", "MyRedditApp/0.1 by Me");
+                    //Basic Base64(client_Id:client_secret)
+                    var content = new FormUrlEncodedContent(values);
+                    var response = await client.PostAsync(new Uri(requestTokenURL), content);
 
-                    var response = await client.GetAsync(new Uri(requestTokenURL));
+
+					//var responseString = await response.Content.ReadAsStringAsync();
 
                     if (response.IsSuccessStatusCode)
                     {
-    					string content = await response.Content.ReadAsStringAsync();
+                        string responseString = await response.Content.ReadAsStringAsync();
     					
     					//var newToken = JObject.Parse(content)["access_token"].ToString();
     					//_accessToken = newToken;
@@ -109,6 +125,11 @@ namespace MyRedditApp.Services
 
         public string GetToken()
         {
+            //Task.Run(async ()=>
+            //{
+            //    await GetRequestToken();
+            //});
+
             return _accessToken;
         }
 

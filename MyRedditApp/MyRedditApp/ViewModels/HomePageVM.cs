@@ -2,9 +2,6 @@
 
 using Xamarin.Forms;
 
-using MyRedditApp.Helpers;
-using MyRedditApp.Services.Interfaces;
-
 namespace MyRedditApp.ViewModels
 {
     public class HomePageVM : BaseVM
@@ -14,10 +11,6 @@ namespace MyRedditApp.ViewModels
         bool _showError;
         string _errorMessage;
 
-
-        Command _getTopPostsCommand;
-        IPostService _postService;
-
         #endregion
 
         #region Constructor
@@ -25,8 +18,6 @@ namespace MyRedditApp.ViewModels
         {
             ShowError = false;
             ErrorMessage = string.Empty;
-
-            _postService = ServiceLocator.Instance.Get<IPostService>();
 
         }
 
@@ -46,35 +37,9 @@ namespace MyRedditApp.ViewModels
             set { SetProperty(ref _errorMessage, value); }
         }
 
-        #endregion
-
-        #region Commands
-
-        public Command GetTopPostsCommand
+        public ImageSource UserProfilePhoto
         {
-            get
-            {
-                if (_getTopPostsCommand == null)
-                {
-                    _getTopPostsCommand = new Command(async () =>
-                    {
-                        try{
-                            
-                            var topModelStore = await _postService.GetItemAsync(AppConfig.TopPost);
-
-                            var children = topModelStore.PostChildren;
-
-                            
-                        }catch(Exception e)
-                        {
-                            throw new Exception("Error", e);
-                        }
-                
-                       // Application.Current.MainPage.Navigation.PushPopupAsync(new MenuPage());
-                    });
-                }
-                return _getTopPostsCommand;
-            }
+            get { return ImageSource.FromFile("redditprofile.jpg"); }
         }
 
         #endregion

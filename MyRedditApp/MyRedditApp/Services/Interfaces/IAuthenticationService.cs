@@ -8,6 +8,5 @@ namespace MyRedditApp.Services
         Task<bool> GetRequestToken();
 
         String GetToken();
-
     }
 }

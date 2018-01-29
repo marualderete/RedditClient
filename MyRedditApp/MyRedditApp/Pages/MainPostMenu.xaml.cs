@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+
+using Xamarin.Forms;
+
 using MyRedditApp.Models;
 using MyRedditApp.ViewModels;
-using Xamarin.Forms;
 
 namespace MyRedditApp.Pages
 {
@@ -19,7 +19,7 @@ namespace MyRedditApp.Pages
             // Set the default page, this is the "home" page.
             Detail = new NavigationPage(new HomePage());
 
-            InitializeComponent();
+            InitializeComponent();			
         }
 
         #endregion
@@ -39,12 +39,11 @@ namespace MyRedditApp.Pages
             if (viewModel.Posts.Last() == viewCellDetail)
             {
                 await viewModel.LoadMorePosts(viewModel.CurrentPostStore.After);
-            }
-
-          
+            }         
 
         }
 
         #endregion
+
     }
 }

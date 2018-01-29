@@ -1,11 +1,12 @@
 ﻿using System;
+using System.IO;
 
 using Xamarin.Forms;
 
+using SQLite;
+
 using MyRedditApp.iOS.PlatformServices;
 using MyRedditApp.PlatformServices;
-using System.IO;
-using SQLite;
 
 [assembly: Dependency(typeof(AppConnectionService))]
 namespace MyRedditApp.iOS.PlatformServices

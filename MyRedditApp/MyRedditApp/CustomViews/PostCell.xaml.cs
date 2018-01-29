@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using MyRedditApp.Models;
+
 using Xamarin.Forms;
+
+using MyRedditApp.Models;
 
 namespace MyRedditApp.CustomViews
 {
@@ -20,6 +20,7 @@ namespace MyRedditApp.CustomViews
         #endregion
 
         #region Properties
+
         public ImageSource PostThumbnail
         {
             get { return CircleImagePhoto.Source; }
@@ -146,27 +147,32 @@ namespace MyRedditApp.CustomViews
             CellBody.GestureRecognizers.Add(tapGestureRecognizer);
         }
 
+        /// <summary>
+        /// Dismisses the command changed.
+        /// </summary>
         void DismissCommandChanged()
         {
             var tapGestureRecognizer = new TapGestureRecognizer();
-            tapGestureRecognizer.Tapped += async (s, e) =>
+            tapGestureRecognizer.Tapped += (s, e) =>
             {
-                DismissButton.Opacity = .5;
-                await Task.Delay(100);
-                DismissButton.Opacity = 1;
+                this.TranslateTo(-400, this.Y, 500);
                 DismissCommand.Execute(PostData.PostDetail.FullName);
             };
 
             DismissButton.GestureRecognizers.Add(tapGestureRecognizer);
         }
 
+        /// <summary>
+        /// Loads the post data.
+        /// </summary>
+        /// <param name="newPost">New post.</param>
         void LoadPostData(Post newPost)
         {
             if(newPost != null)
             {
                 PostThumbnail = newPost.GetThumbnailImage();
     			Author = newPost.PostDetail.Author;
-    			CreatedDate = " n days ago ";
+                CreatedDate = newPost.PostDetail.CreatedDateStr;
     			PostTitle = newPost.PostDetail.Title;
                 CommentsCount = newPost.PostDetail.CommentCount.ToString()+ " Comments";
             }

@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading.Tasks;
-using MyRedditApp.Helpers;
-using MyRedditApp.Models;
-using MyRedditApp.Services.Interfaces;
-using Newtonsoft.Json;
+
 using Newtonsoft.Json.Linq;
+
+using MyRedditApp.Helpers;
+using MyRedditApp.Services.Interfaces;
 
 namespace MyRedditApp.Services
 {
@@ -19,6 +16,7 @@ namespace MyRedditApp.Services
         #region Private
 
         IAuthenticationService _authenticationService = ServiceLocator.Instance.Get<IAuthenticationService>();
+
         #endregion
 
         #region Constructor
@@ -36,7 +34,6 @@ namespace MyRedditApp.Services
         /// <param name="accessToken">Access token.</param>
         public async Task<T> GetItemAsync(string concreteSearch, string after = null)
         {
-
             if (string.IsNullOrEmpty(concreteSearch))
                 throw new ArgumentNullException("concreteSearch", "You must specify what you are looking for");
 
@@ -75,7 +72,7 @@ namespace MyRedditApp.Services
                 }
                 catch (Exception e)
                 {
-                    throw new ArgumentNullException("Error", "Sorry, we are having some problems with the service");
+                    throw new ArgumentNullException("Sorry, we are having some problems with the service", e);
                 }
 
                 return default(T);

@@ -1,10 +1,10 @@
 ﻿using System;
 
-using MyRedditApp.Helpers;
+using SQLite;
 using Newtonsoft.Json;
 
-using SQLite;
-using Xamarin.Forms;
+using MyRedditApp.Helpers;
+
 
 namespace MyRedditApp.Models
 {
@@ -52,5 +52,9 @@ namespace MyRedditApp.Models
 
         [JsonProperty("is_video")]
         public bool IsVideo { get; set; }
+
+        [JsonProperty("is_self")]
+        public bool IsSelf { get; set; }
+
     }
 }

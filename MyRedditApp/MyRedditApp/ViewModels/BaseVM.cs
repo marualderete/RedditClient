@@ -1,4 +1,5 @@
 ﻿using System;
+
 using MyRedditApp.Helpers;
 
 namespace MyRedditApp.ViewModels

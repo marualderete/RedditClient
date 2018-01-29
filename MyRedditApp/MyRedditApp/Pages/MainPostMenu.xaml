@@ -17,17 +17,18 @@
 
                 </Frame>
 
+
                 <ListView x:Name="PostListView"
-                          VerticalOptions="FillAndExpand"
-                          BackgroundColor="{StaticResource LightBlue}"
-                          IsPullToRefreshEnabled="true"
-                          IsRefreshing="{Binding IsRefreshing}"
-                          ItemAppearing="PostAppearing"
-                          ItemsSource="{Binding Posts}"
-                          RefreshCommand="{Binding RefreshCommand}"
-                          RowHeight="120"
-                          SeparatorColor="{StaticResource CustomGray}"
-                          SeparatorVisibility="Default">
+                                            VerticalOptions="FillAndExpand"
+                                            BackgroundColor="{StaticResource LightBlue}"
+                                            IsPullToRefreshEnabled="true"
+                                            IsRefreshing="{Binding IsRefreshing}"
+                                            ItemAppearing="PostAppearing"
+                                            ItemsSource="{Binding Posts}"
+                                            RefreshCommand="{Binding RefreshCommand}"
+                                            RowHeight="120"
+                                            SeparatorColor="{StaticResource CustomGray}"
+                                            SeparatorVisibility="Default">
                     <!--  Menu background color  -->
 
                     <ListView.ItemTemplate>
@@ -49,11 +50,10 @@
 
                 </ListView>
 
-                <Frame x:Name="MenuFooter"
-                       Style="{StaticResource MenuFoterFrame}">
+                <Frame x:Name="MenuFooter" Style="{StaticResource MenuFoterFrame}">
 
-                    <Button Style="{StaticResource MenuFooterButton}"
-                            Command="{Binding DismissAllCommand}"
+                    <Button Command="{Binding DismissAllCommand}"
+                            Style="{StaticResource MenuFooterButton}"
                             Text="Dismiss All" />
                 </Frame>
 

@@ -1,13 +1,14 @@
 ﻿using System;
-using System.IO;
-using System.Net;
 using System.Threading.Tasks;
-using AssetsLibrary;
+
+using Xamarin.Forms;
+
 using Foundation;
+
+using UIKit;
+
 using MyRedditApp.iOS.PlatformServices;
 using MyRedditApp.PlatformServices;
-using UIKit;
-using Xamarin.Forms;
 
 [assembly: Dependency(typeof(MediaService))]
 namespace MyRedditApp.iOS.PlatformServices
@@ -37,7 +38,6 @@ namespace MyRedditApp.iOS.PlatformServices
             }
             catch(Exception ex)
             {
-                
                 return Task.FromResult(false);
             }
 

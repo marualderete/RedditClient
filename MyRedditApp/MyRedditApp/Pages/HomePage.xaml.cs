@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using MyRedditApp.ViewModels;
+﻿using MyRedditApp.ViewModels;
+
 using Xamarin.Forms;
 
 namespace MyRedditApp.Pages
