@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<MasterDetailPage x:Class="MyRedditApp.Pages.MainPostMenu"
+                  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:customViews="clr-namespace:MyRedditApp.CustomViews"
+                  NavigationPage.HasNavigationBar="False" 
+                  x:Name="MainPostMenu">
+
+    <MasterDetailPage.Master>
+        <ContentPage Title=" Top Posts " Icon="hamburger_menu.png">
+            <!--  Menu Title background color  -->
+
+            <!--  Slide out Menu  -->
+            <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource LightBlue}">
+
+                <Frame Style="{StaticResource MenuHeaderFrame}">
+                    <Label Style="{StaticResource MenuHeaderTitle}" Text="Top Posts" />
+
+                </Frame>
+
+
+                <ListView x:Name="PostListView"
+                                            VerticalOptions="FillAndExpand"
+                                            BackgroundColor="{StaticResource LightBlue}"
+                                            IsPullToRefreshEnabled="true"
+                                            IsRefreshing="{Binding IsRefreshing}"
+                                            ItemAppearing="PostAppearing"
+                                            ItemsSource="{Binding Posts}"
+                                            RefreshCommand="{Binding RefreshCommand}"
+                                            RowHeight="120"
+                                            SeparatorColor="{StaticResource CustomGray}"
+                                            SeparatorVisibility="Default">
+                    <!--  Menu background color  -->
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <customViews:PostCell x:Name="ThePostCell"
+                                                      Margin="5,0"
+                                                      BackgroundColor="Transparent"
+                                                      DismissCommand="{Binding Path=BindingContext.DismissCommand,
+                                                                               Source={x:Reference MainPostMenu}}"
+                                                      OnSelectedCommand="{Binding Path=BindingContext.PostSelectedCommand,
+                                                                                  Source={x:Reference MainPostMenu}}"
+                                                      Padding="0"
+                                                      PostData="{Binding .}" />
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
+                <Frame x:Name="MenuFooter" Style="{StaticResource MenuFoterFrame}">
+
+                    <Button Command="{Binding DismissAllCommand}"
+                            Style="{StaticResource MenuFooterButton}"
+                            Text="Dismiss All" />
+                </Frame>
+
+            </StackLayout>
+
+        </ContentPage>
+    </MasterDetailPage.Master>
+
+</MasterDetailPage>

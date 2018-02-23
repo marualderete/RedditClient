@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:Plugins="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+    NavigationPage.HasNavigationBar="False" 
+    BackgroundColor="{StaticResource Orange}"
+    x:Class="MyRedditApp.Pages.HomePage">
+    
+	<ContentPage.Content>
+        <StackLayout Margin="1" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+
+
+            <Label Text="Welcome!" FontSize="38" Font="Bold" XAlign="Center" TextColor="White" ></Label>
+            <Plugins:CircleImage WidthRequest="200"
+                                 HeightRequest="200"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Source="{Binding UserProfilePhoto}"
+                                 Style="{StaticResource ProfilePhoto}" />
+
+        </StackLayout>
+        
+	</ContentPage.Content>
+</ContentPage>
