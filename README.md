@@ -1,18 +1,18 @@
-#Obective
+# Obective
 Create a simple Reddit client that shows the top 50 entries from Reddit
 
-#Show your work
+# Show your work
 Create a Public repository
 Commit each step of your process so we can follow your thought process.
 
-#Guidelines
+# Guidelines
 To do this please follow these guidelines:
 
 - Assume the latest platform and use Xamarin Forms
 - Support all Device Orientation
 - Support all Devices screen sizes
 
-#What to show
+# What to show
 The app should be able to show data from each entry such as:
 - Title (at its full length, so take this into account when sizing your cells)
 - Author
@@ -22,7 +22,7 @@ The app should be able to show data from each entry such as:
 - Unread status
 In addition, for those having a picture (besides the thumbnail), please allow the user to tap on the thumbnail to be sent to the full sized picture. You don’t have to implement the IMGUR API, so just opening the URL would be OK.
 
-#What to Include
+# What to Include
 - Pull to Refresh
 - Pagination support
 - Saving pictures in the picture gallery
@@ -32,7 +32,7 @@ In addition, for those having a picture (besides the thumbnail), please allow th
 - Dismiss All Button (remove all posts. Animations required)
 - Support split layout (left side: all posts / right side: detail post)
 
-#Resources
+# Resources
 - [Reddit API](http://www.reddit.com/dev/api)
 - [Apigee](https://apigee.com/console/reddit)
 - Example JSON file (top.json) is listed.
