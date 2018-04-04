@@ -9,7 +9,6 @@ In post detail page, you can download the image (if the post has one) or go to t
 
 
 ## In this project I implement:
-
 * Pull to refresh
 * Pagination Support in post list
 * Saving images to an external storage (mobile gallery) implementing DependencyService on each platform
