@@ -1,7 +1,7 @@
 # RedditClient
-A Xamarin Forms app that consumes Reddit Appi. It shows show user posts on a master detail, as a menu.
-And take you to post details when tapped.
-In pos detail page You can download the image or go to the external site.
+A Xamarin Forms app that consumes Reddit Appi. It shows show user posts on a master detail (as a menu) and take you to post details when you tap one item from the post list.
+
+In post detail page, you can download the image (if the post has one) or go to the external site.
 
 
 #In this project I implement:
@@ -20,5 +20,6 @@ In pos detail page You can download the image or go to the external site.
 # TO DO List
 
 * Because of time I didn't make an indicator of unread/read post (updated status, after post it’s selected)
+* I will implement a custom task scheduller in order to improve async tasks.
 
 
